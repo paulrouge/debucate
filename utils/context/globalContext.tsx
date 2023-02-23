@@ -24,7 +24,8 @@ export type globalContextValueType = {
     setTransactionToCheck: React.Dispatch<React.SetStateAction<qTransactionChecker| null>>,
     connectModalOpen: boolean,
     setConnectModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
-
+    isSidebarOpen: boolean,
+    setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>,
     // project specific state values
     lotteryId: number,
     setLotteryId: React.Dispatch<React.SetStateAction<number>>,
@@ -44,7 +45,8 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
     const [transactionToCheck, setTransactionToCheck] = useState<qTransactionChecker|null>(null)
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
-    
+    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
+
     // project specific state values
     const [lotteryId, setLotteryId] = useState<number>(0)
     
@@ -67,6 +69,8 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         setTransactionToCheck: setTransactionToCheck,
         connectModalOpen: connectModalOpen,
         setConnectModalOpen: setConnectModalOpen,
+        isSidebarOpen: isSidebarOpen,
+        setIsSidebarOpen: setIsSidebarOpen,
 
         // project specific state values
         lotteryId: lotteryId,

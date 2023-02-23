@@ -33,20 +33,29 @@ export default function Home() {
           </div>
         </div>
         
-        <div className='my-4 md:w-1/2 md-11/12'>
+        <div className='my-4 md:w-1/2 md-11/12 h-48'>
+          
           <div className='
-          mt-4 flex items-center flex flex-col
+          mt-4 flex items-center flex flex-col h-16 w-full
           bg-gray-100 text-gray-700 font-mono p-2 rounded-md'
           >
             <div>
               🌐 GlobalContext API: 
             </div>
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+              >
             <div>
               {testValue}
             </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
           <div className='
-          mt-4 flex items-center flex flex-col
+          mt-4 flex items-center flex flex-col h-16 w-full
           bg-gray-100 text-gray-700 font-mono p-2 rounded-md'>
             <div>
               🔐 Connected wallet:

@@ -1,5 +1,5 @@
 'use client';
-import React,{ useState,Fragment }  from 'react'
+import React,{ useState }  from 'react'
 import { useGlobalContext } from '../../utils/context/globalContext'
 import { Listbox,Transition } from '@headlessui/react'
 import { CheckIcon,ChevronUpDownIcon } from '@heroicons/react/20/solid'
