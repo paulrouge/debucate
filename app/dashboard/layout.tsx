@@ -1,5 +1,5 @@
-import './globals.css'
-import { GlobalContextProvider } from '../utils/context/globalContext'
+import './../globals.css'
+import { GlobalContextProvider } from '../../utils/context/globalContext'
 import QNectHandler from '@/components/qnect/QNectHandler'
 
 export default function RootLayout({
