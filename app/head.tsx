@@ -1,9 +1,9 @@
 export default function Head() {
   return (
     <>
-      <title>web3 template</title>
+      <title>Qnect Showcase</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
-      <meta name="description" content="a NextJs 13 web3 template" />
+      <meta name="description" content="Qnect Showcase" />
       <link rel="icon" href="/favicon.ico" />
     </>
   )
