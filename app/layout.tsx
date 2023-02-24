@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <GlobalContextProvider>
           <QNectHandler/>
-          <OpenSidebarButton  />
+          <OpenSidebarButton/>
           <Sidebar/>
           {children}
         </GlobalContextProvider>

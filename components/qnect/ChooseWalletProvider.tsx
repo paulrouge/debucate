@@ -5,6 +5,8 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import { ethers } from 'ethers'
 import SelectChainId from './SelectChainId';
 import { motion, AnimatePresence } from "framer-motion"
+import Image from 'next/image';
+import useIconBlockchain from '@/utils/qnect/useIconBlockchain';
 
 type Props = {
     name: string
@@ -18,7 +20,17 @@ type MetaMaskEthereumProvider = {
 declare const window: any;
 
 const WalletProvider = ({name}: Props) => {
-    const { setAccount, setConnectModalOpen, setProvider, setSigner, chainId } = useGlobalContext()
+    const { 
+        setAccount, 
+        setConnectModalOpen, 
+        setProvider, 
+        setSigner, 
+        chainId, 
+        selectedChainIsIcon,
+        setSelectedChainIsIcon 
+    } = useGlobalContext()
+
+    useIconBlockchain()
 
     // switch chain
     const switchChain = async () => {
@@ -55,6 +67,8 @@ const WalletProvider = ({name}: Props) => {
                     setProvider(_provider) 
                     const _signer = _provider.getSigner()
                     setSigner(_signer)
+
+                    return
                 }
             } catch (error) {
                 console.log(error)
@@ -64,6 +78,17 @@ const WalletProvider = ({name}: Props) => {
         if (name === 'Hana') {
             try {
                 if(window !== undefined) {
+                    if(selectedChainIsIcon){
+                        const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST',  {   
+                            detail: { 
+                            type: 'REQUEST_ADDRESS'   
+                            } 
+                        });
+                        window.dispatchEvent(customEvent);
+                   
+                        return
+                    }
+                    
                     if (window.hanaWallet !== undefined) {
                         const _account = await window.hanaWallet.ethereum.request({ method: 'eth_requestAccounts' })
                         setAccount(_account[0])
@@ -71,6 +96,8 @@ const WalletProvider = ({name}: Props) => {
                         setProvider(_provider)
                         const _signer = _provider.getSigner()
                         setSigner(_signer)
+
+                        return
                     }
                 }
             } catch (error) {
@@ -89,9 +116,10 @@ const WalletProvider = ({name}: Props) => {
     transition={{ duration: 0.1 }}
     onClick={handleClick} 
     className='
-    p-4 m-2 bg-customBlue rounded-md 
+    p-4 m-2 bg-customBlue rounded-md flex justify-center items-center
     text-white cursor-pointer z-10'
     >
+        <Image src={`/media/${name}.png`} width={40} height={40} alt={name} className='mr-4'/>
         {name}
     </motion.div>
 )}

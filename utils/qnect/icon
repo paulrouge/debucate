@@ -1,0 +1,164 @@
+// import IconService from 'icon-sdk-js';
+
+// const sleep = ms => new Promise(r => setTimeout(r, ms));
+// const HttpProvider = IconService.HttpProvider;
+// const PROVIDER = new HttpProvider("https://ctz.solidwallet.io/api/v3");
+// const iconService = new IconService(PROVIDER);
+
+// // CREATE EVENTLISTENER
+// async function eventHandler(event: CustomEvent){
+//   const type = event.detail.type
+//   const  payload = event.detail.payload
+  
+//   switch (type) {
+//     case "RESPONSE_HAS_ACCOUNT":
+//         // console.log(type, payload)
+//         break
+//     case "RESPONSE_HAS_ADDRESS":
+//         break
+//     case "RESPONSE_ADDRESS":
+//         localStorage.setItem('connected', String(true))
+//         localStorage.setItem('active_address', payload)
+//         break
+//     case "RESPONSE_JSON-RPC":
+//         sessionStorage.setItem('tx', payload.result)
+//         // return payload
+//         break 
+//     case "CANCEL_JSON-RPC": 
+//         sessionStorage.setItem('tx', 'cancelled')
+//         // responseScore.value = null;
+//         break
+//     case "RESPONSE_SIGNING":
+//         // let _sig = JSON.stringify(payload)
+//         // console.log(_sig)
+//         break
+//     case "CANCEL_SIGNING":
+        
+//         // console.log('cancelled signing') 
+//         // signingData.value = null
+//         // responseSigning.value = "> Signature : ";
+//         break
+
+//     default:
+//   }
+// }
+
+// // ADD THE ABOVE CREATED EVENTLISTENERS TO THE DOM
+// export const activateEventListener = () => {
+//     window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+// }
+
+// // dispatch event to get address
+// export const getActiveAddress = () => {
+//   const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST',  {   
+//     detail: { 
+//     type: 'REQUEST_ADDRESS'   
+//     } 
+//   });
+//   window.dispatchEvent(customEvent);
+// }
+
+// // ######    CONTRACT CALLS    ######
+
+
+// // const PRESALE_MAINNET = '0x8f8221aFbB33998d8584A2B05749bA73c37a938a'
+// const NETWORK_ID_MAIN = '0x1'
+
+// // export const PRESALE_TESTNET = 'cxacd791d1a5cd6e530ed8ab3b3e48764bdd92c03e'
+// // export const REWARD_CONTRACT = 'cxb4883e8f47866712fec490daea0f25fdf5216da0'
+// // 
+// // wrong uri main - cxf7c59acb61a6d0c038582ea134dfcf65beebd00b
+
+// export const PRESALE_MAIN = 'cx883042c10602b50defe69dd8c44acb21e999ada2'
+// export const REWARD_MAIN = 'cxc2f3ea1c84cac895b3ab05681705d472002bfb1f'
+
+// // const NETWORK_ID_TESTNET = '0x53'
+
+// // build a call object
+// const call = async(_method, _params) =>  {
+//   const txObj = new IconService.IconBuilder.CallBuilder()
+//       .to(PRESALE_MAIN)
+//       .method(_method)
+//       .params(_params)
+//       .build()
+
+//   return txObj;
+// }
+
+// // build a transaction object
+// const buildTx = async (_from, _to, _value, _method, _params) => {
+//   // 2 million for every 10 icx of value
+//   let _stepLimit = _value / (5 * 10 ** 12)
+  
+//   if(_stepLimit < 1) {
+//     _stepLimit = 2000000
+//   }
+
+//   const callTransactionBuilder = new IconService.IconBuilder.CallTransactionBuilder();
+//   const obj = callTransactionBuilder
+//   .nid(NETWORK_ID_MAIN)
+//   .from(_from)
+//   .to(_to)
+//   .stepLimit(IconService.IconConverter.toBigNumber(_stepLimit))
+//   .value(_value)
+//   .timestamp(`0x${((new Date()).getTime() * 1000).toString(16)}`)
+//   .method(_method)
+//   .params(_params)
+//   .version('0x3')
+//   .build(); 
+  
+//   const raw = IconService.IconConverter.toRawTransaction(obj);        
+//   // console.log(raw)
+//   return raw;        
+// };
+
+// export const executeCall = async (_to, _method, _params) => {
+//   // get a call object
+//   const _call = await call(_to, _method, _params)
+//   // execute the call with the retrieve call object
+//   const _executedCall = await iconService.call(_call).execute()
+  
+//   return _executedCall
+// }
+
+// export const signTx = async (_from, _to, _value, _method, _params) => {
+//   sessionStorage.removeItem('tx')
+  
+//   const _tx = await buildTx(_from, _to, _value, _method, _params);
+  
+//   const _req = {
+//       "jsonrpc": '2.0', 
+//       "method": 'icx_sendTransaction',
+//       "params": _tx,
+//       "id": 1234,
+//   }
+  
+//   const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST',  {   
+//       detail: { 
+//           type: 'REQUEST_JSON-RPC',
+//           payload: _req 
+//       }
+//   }); 
+
+//   window.dispatchEvent(customEvent);
+
+// }
+
+// export const getNFTBalance = async (_address:string) => {
+//   const params = {"_address": _address}
+//   const _res = await executeCall(PRESALE_MAIN, 'balanceOf', params)
+//   return _res
+// }
+
+// export const executeRewardCall = async () => {
+  
+//   const txObj = new IconService.IconBuilder.CallBuilder()
+//     .to(REWARD_MAIN)
+//     .method("rewardBalanceOf")
+//     .params({"_address": localStorage.getItem('active_address')})
+//     .build()
+
+//   const _executedCall = await iconService.call(txObj).execute()
+  
+//   return _executedCall
+// }

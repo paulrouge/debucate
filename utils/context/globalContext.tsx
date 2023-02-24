@@ -14,6 +14,8 @@ export type globalContextValueType = {
     setBalance: React.Dispatch<React.SetStateAction<number>>,
     chainId: number,
     setChainId: React.Dispatch<React.SetStateAction<number>>,
+    selectedChainIsIcon: boolean,
+    setSelectedChainIsIcon: React.Dispatch<React.SetStateAction<boolean>>,
     provider: ethers.providers.Web3Provider | null,
     setProvider: React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider|null>>,
     signer: ethers.Signer | null,
@@ -40,6 +42,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [account, setAccount] = useState<string>('')
     const [balance, setBalance] = useState<number>(0)
     const [chainId, setChainId] = useState<number>(553) // 553: Arctic Test, 553: Snow Main
+    const [selectedChainIsIcon, setSelectedChainIsIcon] = useState<boolean>(false)
     const [provider, setProvider] = useState<ethers.providers.Web3Provider|null>(null)
     const [signer, setSigner] = useState<ethers.Signer|null>(null)
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
@@ -59,6 +62,8 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         setBalance,
         chainId,
         setChainId,
+        selectedChainIsIcon,
+        setSelectedChainIsIcon,
         provider,
         setProvider,
         signer,

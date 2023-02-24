@@ -21,9 +21,6 @@ export default function Home() {
         <div className='text-2xl my-10 font-bold'>
           This is a Tailwind Example with Next.js 13 & qNect
         </div>
-        {/* <div className='text-xl w-1/2 font-light'>
-          Check utils/qnect to learn more about how to use qNect to connect to your Hana or MetaMask wallet.
-        </div> */}
         <div className='md:text-xl text-lg'>
           <div className='list-disc list-inside'>
             <div className='my-4'>👉🏼 Global states are handled by the GlobalContextProvider. 
@@ -33,7 +30,7 @@ export default function Home() {
           </div>
         </div>
         
-        <div className='my-4 md:w-1/2 md-11/12 h-48'>
+        <div className='my-4 md:w-3/5 md-11/12 h-48'>
           
           <div className='
           mt-4 flex items-center flex flex-col h-16 w-full

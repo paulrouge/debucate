@@ -13,15 +13,19 @@ type Chain = {
 const chains = [
   { id: 552, name: 'Snow Main', unavailable: false },
   { id: 553, name: 'Arctic Test', unavailable: false },
-  { id: 1, name: 'Icon Main', unavailable: true },
+  { id: 1, name: 'Icon Main', unavailable: false },
 ]
 
 const SelectChainId = () => {
-  const { setChainId } = useGlobalContext()
+  const { setChainId, setSelectedChainIsIcon } = useGlobalContext()
   const [selectedChain, setSelectedChain] = useState(chains[0])
 
   const handleSelectChain = (event: Chain) => {
-    console.log('handleSelectChain', event)
+    if(event.name === 'Icon Main') {
+      setSelectedChainIsIcon(true)
+    } else {
+      setSelectedChainIsIcon(false)
+    }
     setChainId(event.id)
     setSelectedChain(event)
   }

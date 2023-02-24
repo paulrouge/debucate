@@ -6,12 +6,12 @@ import { useGlobalContext } from '@/utils/context/globalContext';
 
 const menuItems = [
     {
-        name: 'Menu item 1',
+        name: 'Home',
         link: '#',
     },
     {
-        name: 'Menu item 2',
-        link: '#',
+        name: 'Dashboard',
+        link: '/dashboard',
     },
     {
         name: 'Menu item 3',
