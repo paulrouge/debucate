@@ -1,15 +1,17 @@
 
 'use client';
+import {useEffect} from 'react'
 import styles from "./page.module.css";
 import { useGlobalContext } from "@/utils/context/globalContext";
 import { formatAddress } from "@/utils/qnect/formatAddress";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const { testValue, account } = useGlobalContext()
-  
+  const { testValue, account, selectedChainIsIcon } = useGlobalContext()
+
+
   return (
-    <div className='w-full bg-funPurple font-customFont'>
+    <div className={`w-full font-customFont bg-funBlue ${selectedChainIsIcon ? ' bg-funBlue' : 'bg-funRed'} `}>
       <main className='
       flex justify-center 
       items-center m-auto min-h-screen flex-col

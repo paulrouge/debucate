@@ -11,16 +11,15 @@ export default function QNectButton() {
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.9 }}
     transition={{ duration: 0.04 }}
-
     className='
-    border-2 border-white z-40
-    fixed top-4 right-4 font-bold md:p-4 p-2
+    border border-gray-300 z-40
+    fixed top-4 right-4 font-bold px-2 py-1
     bg-blue-500 text-white flex justify-center 
-    items-center rounded-md cursor-pointer
+    items-center rounded-xl cursor-pointer
     '
     onClick={()=>setConnectModalOpen(true)}
     >
-        QNect
+        Q-Nect
     </motion.div>
     );
 }

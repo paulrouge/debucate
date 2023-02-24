@@ -1,14 +1,21 @@
 'use client';
-import React from 'react'
+import React,{useEffect} from 'react'
 import { useGlobalContext } from '@/utils/context/globalContext'
 import AwaitTransactionModal from '@/components/qnect/AwaitTransactionModal'
 import ChooseWalletProvider from '@/components/qnect/ChooseWalletProvider';
 import QNectButton from '@/components/qnect/QNectButton';
+import useIconBlockchain from '@/utils/qnect/useIconBlockchain';
 
 
 const QNectHandler = () => {
     const { transactionToCheck, connectModalOpen } = useGlobalContext()
   
+    const { setEventListeners } = useIconBlockchain()
+    
+    useEffect(() => {
+        setEventListeners()
+    }, [])
+
     return (
     <div>
 

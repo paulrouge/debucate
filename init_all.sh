@@ -30,6 +30,9 @@ yarn add framer-motion
 # Install ethers 5.4
 yarn add ethers@5.4
 
+# Install icon-sdk-js
+yarn add icon-sdk-js
+
 # Install @metamask/detect-provider
 yarn add @metamask/detect-provider
 

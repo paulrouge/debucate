@@ -1,5 +1,6 @@
 type AddressLocation = {
-    lotteryContract: string;
+    lotteryContract?: string;
+    ICON_test_contract?: string;
 };
 
 export type ContractAddresses = {
@@ -12,5 +13,8 @@ export const ContractAddresses:ContractAddresses = {
     },
     553:{
         lotteryContract: '0x6F9679BdF5F180a139d01c598839a5df4860431b', // Test Arctic
+    },
+    1:{
+        ICON_test_contract: '0x6F9679BdF5F180a139d01c598839a5df4860431b', // Test Arctic
     },
 };

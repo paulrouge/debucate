@@ -1,5 +1,5 @@
 'use client';
-import React,{ useState }  from 'react'
+import React,{ useEffect, useState }  from 'react'
 import { useGlobalContext } from '../../utils/context/globalContext'
 import { Listbox,Transition } from '@headlessui/react'
 import { CheckIcon,ChevronUpDownIcon } from '@heroicons/react/20/solid'
@@ -17,8 +17,20 @@ const chains = [
 ]
 
 const SelectChainId = () => {
-  const { setChainId, setSelectedChainIsIcon } = useGlobalContext()
+  const { setChainId, setSelectedChainIsIcon, chainId } = useGlobalContext()
   const [selectedChain, setSelectedChain] = useState(chains[0])
+
+  useEffect(() => {
+    // check the globale state for chainId and set the selectedChain
+    for(let i = 0; i < chains.length; i++){
+      if(chains[i].id === chainId){
+        setSelectedChain(chains[i])
+        if(chains[i].name === 'Icon Main'){
+          setSelectedChainIsIcon(true)
+        }
+      }
+    }
+  }, [])
 
   const handleSelectChain = (event: Chain) => {
     if(event.name === 'Icon Main') {

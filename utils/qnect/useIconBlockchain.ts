@@ -1,21 +1,20 @@
+'use client';
 import { useState, useEffect } from 'react';
 import IconService from 'icon-sdk-js';
 import { useGlobalContext } from '../context/globalContext';
 import { qTransactionChecker } from './qtypes';
+import { getEventListeners } from 'events';
 
 const useIconBlockchain = () => {
-    const { account, setAccount, setTransactionToCheck } = useGlobalContext();
+    const { setAccount, setTransactionToCheck } = useGlobalContext();
     const HttpProvider = IconService.HttpProvider;
     const PROVIDER = new HttpProvider("https://ctz.solidwallet.io/api/v3");
     const iconService = new IconService(PROVIDER);
 
-    
     // CREATE EVENTLISTENER
     async function eventHandler(event: any){
-        console.log(event.detail)
-        // return
         const { type, payload } = event.detail;
-        
+        console.log(type, payload)
         switch (type) {
             case "RESPONSE_HAS_ACCOUNT":
                 // console.log(type, payload)
@@ -51,18 +50,12 @@ const useIconBlockchain = () => {
         }
     }
 
-
-    useEffect(() => {
-        
-        // if eventlistener is not added, add it
-            window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
-        return () => {
-            window.removeEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
-
-        };
-    }, []);
+    const setEventListeners = () => {
+        window.removeEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+        window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+    }
   
-    return ;
+    return { setEventListeners } ;
   };
   
   export default useIconBlockchain;

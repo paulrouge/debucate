@@ -6,7 +6,6 @@ import { ethers } from 'ethers'
 import SelectChainId from './SelectChainId';
 import { motion, AnimatePresence } from "framer-motion"
 import Image from 'next/image';
-import useIconBlockchain from '@/utils/qnect/useIconBlockchain';
 
 type Props = {
     name: string
@@ -26,11 +25,10 @@ const WalletProvider = ({name}: Props) => {
         setProvider, 
         setSigner, 
         chainId, 
-        selectedChainIsIcon,
-        setSelectedChainIsIcon 
+        selectedChainIsIcon, 
     } = useGlobalContext()
 
-    useIconBlockchain()
+
 
     // switch chain
     const switchChain = async () => {
@@ -55,7 +53,8 @@ const WalletProvider = ({name}: Props) => {
         }
     }
 
-    const handleClick = async () => {
+    const handleClick = async () => {        
+        if (name === 'MetaMask' && selectedChainIsIcon) return
         if(name === 'MetaMask'){
             try {
                 const provider = await detectEthereumProvider({mustBeMetaMask:false}) as MetaMaskEthereumProvider
@@ -67,8 +66,6 @@ const WalletProvider = ({name}: Props) => {
                     setProvider(_provider) 
                     const _signer = _provider.getSigner()
                     setSigner(_signer)
-
-                    return
                 }
             } catch (error) {
                 console.log(error)
@@ -79,25 +76,27 @@ const WalletProvider = ({name}: Props) => {
             try {
                 if(window !== undefined) {
                     if(selectedChainIsIcon){
-                        const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST',  {   
-                            detail: { 
-                            type: 'REQUEST_ADDRESS'   
-                            } 
-                        });
-                        window.dispatchEvent(customEvent);
-                   
-                        return
-                    }
-                    
-                    if (window.hanaWallet !== undefined) {
-                        const _account = await window.hanaWallet.ethereum.request({ method: 'eth_requestAccounts' })
-                        setAccount(_account[0])
-                        const _provider = new ethers.providers.Web3Provider(window.hanaWallet.ethereum,)
-                        setProvider(_provider)
-                        const _signer = _provider.getSigner()
-                        setSigner(_signer)
+                        const callHana = () => {
+                            const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST',  {   
+                                detail: { 
+                                type: 'REQUEST_ADDRESS'   
+                                } 
+                            });
 
+                            window.dispatchEvent(customEvent);
+                        }
+                        callHana()
                         return
+                    } else {
+                    
+                        if (window.hanaWallet !== undefined) {
+                            const _account = await window.hanaWallet.ethereum.request({ method: 'eth_requestAccounts' })
+                            setAccount(_account[0])
+                            const _provider = new ethers.providers.Web3Provider(window.hanaWallet.ethereum,)
+                            setProvider(_provider)
+                            const _signer = _provider.getSigner()
+                            setSigner(_signer)
+                        }
                     }
                 }
             } catch (error) {
@@ -111,13 +110,19 @@ const WalletProvider = ({name}: Props) => {
 
     return (
     <motion.div 
-    whileHover={{ scale: 1.03 }}
+    whileHover={
+        selectedChainIsIcon && name === 'MetaMask'
+          ? { scale: 1.0 }
+          : { scale: 1.03 }
+      }
     whileTap={{ scale: 0.9 }}
     transition={{ duration: 0.1 }}
     onClick={handleClick} 
-    className='
-    p-4 m-2 bg-customBlue rounded-md flex justify-center items-center
-    text-white cursor-pointer z-10'
+    className={`p-4 m-2 bg-customBlue rounded-md 
+    lex justify-center items-center text-white z-10 
+    ${selectedChainIsIcon && name === 'MetaMask' ? 'opacity-50' : 'cursor-pointer '}
+    
+    `}
     >
         <Image src={`/media/${name}.png`} width={40} height={40} alt={name} className='mr-4'/>
         {name}
@@ -128,8 +133,9 @@ const ChooseWalletProvider = () => {
     const {setConnectModalOpen} = useGlobalContext()
 
     return (
-    <AnimatePresence>
+    <AnimatePresence >
         <motion.div 
+     
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.5 }}
