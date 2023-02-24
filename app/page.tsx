@@ -22,7 +22,7 @@ export default function Home() {
       md:w-1/2 w-11/12 pt-20
       '>
         <div className='md:text-8xl text-5xl font-bold'>
-          Start building
+          Start Building
         </div>
         <div className='text-2xl my-10 font-bold'>
           This is a Tailwind Example with Next.js 13 & qNect
@@ -85,7 +85,7 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.9 }}
               >
-                <ShowBalance/>
+                <ShowBalance/><></>
               </motion.div>
             </AnimatePresence>
             </div>

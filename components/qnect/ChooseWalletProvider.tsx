@@ -119,7 +119,7 @@ const WalletProvider = ({name}: Props) => {
     transition={{ duration: 0.1 }}
     onClick={handleClick} 
     className={`p-4 m-2 bg-customBlue rounded-md 
-    lex justify-center items-center text-white z-10 
+    flex justify-center items-center text-white z-10 
     ${selectedChainIsIcon && name === 'MetaMask' ? 'opacity-50' : 'cursor-pointer '}
     
     `}
