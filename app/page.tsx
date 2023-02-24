@@ -5,13 +5,17 @@ import styles from "./page.module.css";
 import { useGlobalContext } from "@/utils/context/globalContext";
 import { formatAddress } from "@/utils/qnect/formatAddress";
 import { motion, AnimatePresence } from "framer-motion";
+import ShowBalance from '@/components/ui/ShowBalance';
 
 export default function Home() {
   const { testValue, account, selectedChainIsIcon } = useGlobalContext()
 
 
   return (
-    <div className={`w-full font-customFont bg-funBlue ${selectedChainIsIcon ? ' bg-funBlue' : 'bg-funRed'} `}>
+    <div className={`
+    w-full font-customFont bg-funBlue 
+    ${selectedChainIsIcon ? ' bg-funBlue' : 'bg-funRed'} 
+    `}>
       <main className='
       flex justify-center 
       items-center m-auto min-h-screen flex-col
@@ -69,6 +73,23 @@ export default function Home() {
                 {account !== '' ? formatAddress(account) : 'Not connected'}
               </motion.div>
             </AnimatePresence>
+           
+            <div className='
+            mt-4 flex items-center flex flex-col h-16 w-full
+            bg-gray-100 text-gray-700 font-mono p-2 rounded-md'
+            >  
+           <AnimatePresence>
+              <motion.div
+                key={account}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9 }}
+              >
+                <ShowBalance/>
+              </motion.div>
+            </AnimatePresence>
+            </div>
+            
           </div>
         </div>
       </main>

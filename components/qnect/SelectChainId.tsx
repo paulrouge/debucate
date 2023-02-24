@@ -14,6 +14,7 @@ const chains = [
   { id: 552, name: 'Snow Main', unavailable: false },
   { id: 553, name: 'Arctic Test', unavailable: false },
   { id: 1, name: 'Icon Main', unavailable: false },
+  { id: 2, name: 'Lisbon Test', unavailable: false },
 ]
 
 const SelectChainId = () => {
@@ -25,7 +26,8 @@ const SelectChainId = () => {
     for(let i = 0; i < chains.length; i++){
       if(chains[i].id === chainId){
         setSelectedChain(chains[i])
-        if(chains[i].name === 'Icon Main'){
+        
+        if(chains[i].name === 'Icon Main' || chains[i].name === 'Lisbon Test'){
           setSelectedChainIsIcon(true)
         }
       }
@@ -33,7 +35,7 @@ const SelectChainId = () => {
   }, [])
 
   const handleSelectChain = (event: Chain) => {
-    if(event.name === 'Icon Main') {
+    if(event.name === 'Icon Main' || event.name === 'Lisbon Test') {
       setSelectedChainIsIcon(true)
     } else {
       setSelectedChainIsIcon(false)
