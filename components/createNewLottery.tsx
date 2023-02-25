@@ -24,7 +24,6 @@ const CreateNewLottery = () => {
             eventToEmit={qEvents.CreatedNewLottery}
             buttonName='Create New Lottery'
         />
-
     </div>
   )
 }
