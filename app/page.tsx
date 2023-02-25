@@ -6,10 +6,26 @@ import { useGlobalContext } from "@/utils/context/globalContext";
 import { formatAddress } from "@/utils/qnect/formatAddress";
 import { motion, AnimatePresence } from "framer-motion";
 import ShowBalance from '@/components/ui/ShowBalance';
+import useIconCallBuilder from '@/utils/qnect/useIconCallBuilder';
+import { ContractAddresses } from '@/utils/constants/addresses';
 
 export default function Home() {
-  const { testValue, account, selectedChainIsIcon } = useGlobalContext()
+  const { testValue, account, selectedChainIsIcon, chainId, iconService } = useGlobalContext()
+  
+  const { callContract } = useIconCallBuilder(ContractAddresses[chainId].ICON_lottery_contract!, 'name', {})
 
+  useEffect(() => {
+ 
+    const _callIconContract = async () => {
+      const result = await callContract()
+      console.log(result)
+    }
+
+    if(account !== '' && selectedChainIsIcon && iconService) {
+      _callIconContract()
+    }
+
+  }, [account, chainId, selectedChainIsIcon, iconService])
 
   return (
     <div className={`

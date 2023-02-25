@@ -3,8 +3,7 @@
 import React, {useState} from 'react';
 import { ethers } from 'ethers';
 import { qTransactionChecker } from '../qnect/qtypes';
-
-
+import IconService from 'icon-sdk-js/build/IconService';
 
 export type globalContextValueType = {
     
@@ -18,6 +17,8 @@ export type globalContextValueType = {
     setChainId: React.Dispatch<React.SetStateAction<number>>,
     selectedChainIsIcon: boolean,
     setSelectedChainIsIcon: React.Dispatch<React.SetStateAction<boolean>>,
+    iconService: IconService | null,
+    setIconService: React.Dispatch<React.SetStateAction<IconService | null>>,
     provider: ethers.providers.Web3Provider | null,
     setProvider: React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider|null>>,
     signer: ethers.Signer | null,
@@ -45,6 +46,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [balance, setBalance] = useState<number>(0)
     const [chainId, setChainId] = useState<number>(553) // 553: Arctic Test, 553: Snow Main
     const [selectedChainIsIcon, setSelectedChainIsIcon] = useState<boolean>(false)
+    const [iconService, setIconService] = useState<IconService|null>(null)
     const [provider, setProvider] = useState<ethers.providers.Web3Provider|null>(null)
     const [signer, setSigner] = useState<ethers.Signer|null>(null)
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
@@ -66,6 +68,8 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         setChainId,
         selectedChainIsIcon,
         setSelectedChainIsIcon,
+        iconService,
+        setIconService,
         provider,
         setProvider,
         signer,

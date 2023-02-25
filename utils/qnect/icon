@@ -60,31 +60,6 @@
 
 // // ######    CONTRACT CALLS    ######
 
-
-// // const PRESALE_MAINNET = '0x8f8221aFbB33998d8584A2B05749bA73c37a938a'
-// const NETWORK_ID_MAIN = '0x1'
-
-// // export const PRESALE_TESTNET = 'cxacd791d1a5cd6e530ed8ab3b3e48764bdd92c03e'
-// // export const REWARD_CONTRACT = 'cxb4883e8f47866712fec490daea0f25fdf5216da0'
-// // 
-// // wrong uri main - cxf7c59acb61a6d0c038582ea134dfcf65beebd00b
-
-// export const PRESALE_MAIN = 'cx883042c10602b50defe69dd8c44acb21e999ada2'
-// export const REWARD_MAIN = 'cxc2f3ea1c84cac895b3ab05681705d472002bfb1f'
-
-// // const NETWORK_ID_TESTNET = '0x53'
-
-// // build a call object
-// const call = async(_method, _params) =>  {
-//   const txObj = new IconService.IconBuilder.CallBuilder()
-//       .to(PRESALE_MAIN)
-//       .method(_method)
-//       .params(_params)
-//       .build()
-
-//   return txObj;
-// }
-
 // // build a transaction object
 // const buildTx = async (_from, _to, _value, _method, _params) => {
 //   // 2 million for every 10 icx of value

@@ -6,28 +6,35 @@ import { qTransactionChecker } from './qtypes';
 
 
 const useIconBlockchain = () => {
-    const { setAccount, setTransactionToCheck, chainId, selectedChainIsIcon } = useGlobalContext();
-    const HttpProvider = IconService.HttpProvider;
-    
-    const api_endpoints = {
-        mainnet: "https://ctz.solidwallet.io/api/v3",
-        testnet: "https://lisbon.net.solidwallet.io/api/v3",
-    }
+    const { setAccount, setTransactionToCheck, chainId, selectedChainIsIcon, setIconService } = useGlobalContext();
 
-    let PROVIDER;
+    useEffect(() => {
+        const HttpProvider = IconService.HttpProvider;
+        
+        const api_endpoints = {
+            mainnet: "https://ctz.solidwallet.io/api/v3",
+            testnet: "https://lisbon.net.solidwallet.io/api/v3",
+        }
 
-    if(selectedChainIsIcon && chainId === 2) {
-        PROVIDER = new HttpProvider(api_endpoints.testnet);
-    } else {
-      PROVIDER = new HttpProvider(api_endpoints.mainnet);
-    }
+        let PROVIDER:any;
 
-    const iconService = new IconService(PROVIDER);
+        if(selectedChainIsIcon && chainId === 2) {
+            PROVIDER = new HttpProvider(api_endpoints.testnet);
+
+        } else if(selectedChainIsIcon && chainId === 1) {
+            PROVIDER = new HttpProvider(api_endpoints.mainnet);
+        }
+
+        const iconService = new IconService(PROVIDER);
+        
+        setIconService(iconService)
+
+    }, [chainId, selectedChainIsIcon])
 
     // CREATE EVENTLISTENER
     async function eventHandler(event: any){
         const { type, payload } = event.detail;
-
+        
         switch (type) {
             case "RESPONSE_HAS_ACCOUNT":
                 // console.log(type, payload)
@@ -37,12 +44,16 @@ const useIconBlockchain = () => {
             case "RESPONSE_ADDRESS":
                 setAccount(payload)
                 break
-            case "RESPONSE_JSON-RPC":
-                console.log(payload)
-                // use payload.result to set transaction to check?
-                // setTransactionToCheck(payload.result)
-                
-                // return payload
+            case "RESPONSE_JSON-RPC":                
+                if (payload.error) return 
+
+                const qTx: qTransactionChecker = {
+                    txobject: payload.result,
+                    eventToEmit: null,
+                }
+
+                setTransactionToCheck(qTx)
+          
                 break 
             case "CANCEL_JSON-RPC": 
                 // sessionStorage.setItem('tx', 'cancelled')
@@ -67,10 +78,8 @@ const useIconBlockchain = () => {
         window.removeEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
         window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
     }
-
-    
   
-    return { setEventListeners, iconService } ;
+    return { setEventListeners } ;
   };
   
   export default useIconBlockchain;

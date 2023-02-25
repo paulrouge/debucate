@@ -6,8 +6,8 @@ export type qTransactionChecker = {
     // it talks about a TransactionResponse-type, can't find it or get it to work
     // going with ethers.ContractReceipt for now and cast it to 'any' in 
     // the AwaitTransactionModal in order to call the wait() function
-    txobject :  Promise<ethers.ContractReceipt>,
-    eventToEmit: qEvents
+    txobject :  Promise<ethers.ContractReceipt> | string,
+    eventToEmit: qEvents | null
 }
 
 // a function pair is a tuple of a boolean and a function

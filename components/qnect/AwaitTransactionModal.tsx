@@ -1,17 +1,19 @@
 'use client';
 import React, {useEffect, useState} from 'react'
 import { useGlobalContext } from '../../utils/context/globalContext'
+import useIconBlockchain from '@/utils/qnect/useIconBlockchain';
+import IconService from 'icon-sdk-js/build/IconService';
 
 const sleep = (ms: number) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const AwaitTransactionModal = () => {
-    const { setTransactionToCheck, transactionToCheck } = useGlobalContext()
+    const { setTransactionToCheck, transactionToCheck, selectedChainIsIcon, iconService } = useGlobalContext()
     const [countdown, setCountdown] = useState(40)
     const [status, setStatus] = useState("Waiting for transaction to be mined")
     const [dots, setDots] = useState(".")
-
+  
     useEffect(() => {
         const interval = setInterval(() => {
             if(countdown > 0) {
@@ -22,10 +24,12 @@ const AwaitTransactionModal = () => {
     }, [countdown])
 
     useEffect(() => {
-        setCountdown(40)
+        setCountdown(20)
     }, [transactionToCheck])
 
+    // evm
     useEffect(() => {
+        if (selectedChainIsIcon) return
         const checkTx = async () => {
             const receipt = await transactionToCheck!.txobject
             // cast to any because the type is wrong.
@@ -36,9 +40,10 @@ const AwaitTransactionModal = () => {
             if(txStatus === 1) {
                 setStatus("✅ Transaction successful! Closing in 3 seconds")
                 
-                // use Qnect to run all needed callbacks to update the UI
-                window.dispatchEvent(new CustomEvent(transactionToCheck!.eventToEmit))
-                
+                if(transactionToCheck!.eventToEmit){
+                    // use Qnect to run all needed callbacks to update the UI
+                    window.dispatchEvent(new CustomEvent(transactionToCheck!.eventToEmit))
+                }
             
                 setCountdown(3)    
                 await sleep(3000)
@@ -52,6 +57,71 @@ const AwaitTransactionModal = () => {
         }
         if(transactionToCheck) {
             checkTx()
+        }
+        // eslint-disable-next-line
+    }, [setStatus, setCountdown, setTransactionToCheck])
+
+    // icon
+    useEffect(() => {
+        if (!selectedChainIsIcon) return
+        const checkTx = async () => {
+            const hash:string = String(transactionToCheck!.txobject)
+            await sleep(3000)
+
+            // try 5 times every 2 seconds
+            let tries = 0
+            let receipt = null
+            
+            while(tries < 5) {
+                try {
+                    receipt = await iconService!.getTransactionResult(hash).execute()
+                    if(receipt.status === 1) {
+                        break
+                    } if (receipt.status === 0) {
+                        break
+                    }
+                
+                } catch (e) {
+                    console.log(e)
+                    await sleep(2000)
+                    tries++
+                }
+            }
+            
+            
+            if (receipt === null) {
+                alert("Something went wrong. Check the Tracker.")
+                setTransactionToCheck(null)
+                return
+            }
+            const txStatus = receipt!.status
+
+            if(txStatus === 1) {
+                setStatus("✅ Transaction successful! Closing in 3 seconds")
+                
+                if(transactionToCheck!.eventToEmit){
+                    // use Qnect to run all needed callbacks to update the UI
+                    window.dispatchEvent(new CustomEvent(transactionToCheck!.eventToEmit))
+                }
+                
+                setCountdown(3)    
+                await sleep(3000)
+                
+                // this closes the tx modal
+                setTransactionToCheck(null)
+ 
+            } else {
+                alert("Something went wrong. Check the Tracker.")
+                setTransactionToCheck(null)
+            }
+
+        }
+        if(transactionToCheck) {
+            try{
+                checkTx()
+            } catch (e) {
+                console.log(e)
+            }
         }
         // eslint-disable-next-line
     }, [setStatus, setCountdown, setTransactionToCheck])

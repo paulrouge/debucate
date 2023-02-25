@@ -1,7 +1,6 @@
 'use client';
 import React, {useEffect} from 'react'
 import { useGlobalContext } from '@/utils/context/globalContext';
-import useIconBlockchain from '@/utils/qnect/useIconBlockchain';
 import { ethers } from 'ethers';
 
 const ShowBalance = () => {
@@ -11,22 +10,21 @@ const ShowBalance = () => {
         setBalance, 
         selectedChainIsIcon,
         chainId,
-        provider
+        provider,
+        iconService,
     } = useGlobalContext()
   
-    const { iconService } = useIconBlockchain()
-
 
     useEffect(() => {
         const getIconBalance = async () => {
-            const res = await iconService.getBalance(account).execute()
+            const res = await iconService!.getBalance(account).execute()
             
             setBalance(res.toNumber() / 10 ** 18)
         }
-        if (selectedChainIsIcon && account !== '') {
+        if (selectedChainIsIcon && account !== '' && iconService) {
             getIconBalance()
         }
-    }, [account, selectedChainIsIcon])
+    }, [account, selectedChainIsIcon, iconService])
 
     useEffect(() => {
         const getEVMBalance = async () => {
