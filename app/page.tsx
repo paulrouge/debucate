@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div className={`
-    w-full font-customFont bg-funBlue 
+    w-full font-customFont bg-funBlue transition ease-in-out duration-500
     ${selectedChainIsIcon ? ' bg-funBlue' : 'bg-funRed'} 
     `}>
       <main className='
