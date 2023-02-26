@@ -9,7 +9,7 @@ const OpenSidebarButton = () => {
     return (
     <div>
         <ChevronDoubleRightIcon
-        className="h-8 w-8 text-gray-200 hover:text-gray-800 fixed top-4 left-4"
+        className="h-8 w-8 text-gray-200 hover:text-gray-800 fixed top-4 left-4 z-10"
         onClick={() => setIsSidebarOpen(true)}
         />
     </div>

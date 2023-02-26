@@ -27,6 +27,9 @@ yarn add @heroicons/react
 # Install framer-motion
 yarn add framer-motion
 
+# Install three @types/three @react-three/fiber @react-three/drei
+yarn add three @types/three @react-three/fiber @react-three/drei
+
 # Install ethers 5.4
 yarn add ethers@5.4
 

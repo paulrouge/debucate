@@ -14,8 +14,8 @@ const menuItems = [
         link: '/dashboard',
     },
     {
-        name: 'Menu item 3',
-        link: '#',
+        name: 'For Dave',
+        link: '/three',
     },
 ]
 

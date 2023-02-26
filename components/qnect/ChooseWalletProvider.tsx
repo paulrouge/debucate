@@ -144,7 +144,7 @@ const ChooseWalletProvider = () => {
         fixed top-0 left-0 w-screen h-screen bg-cover 
         bg-center backdrop-blur-sm
         flex justify-center items-center
-        font-customFont font-bold text-2xl
+        font-customFont font-bold text-2xl z-20
         '
         onClick={()=>{setConnectModalOpen(false)}}
         >
