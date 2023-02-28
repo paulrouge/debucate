@@ -1,6 +1,6 @@
 
 'use client';
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 import styles from "./page.module.css";
 import { useGlobalContext } from "@/utils/context/globalContext";
 import { formatAddress } from "@/utils/qnect/formatAddress";

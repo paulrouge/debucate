@@ -3,6 +3,7 @@ import { GlobalContextProvider } from '../utils/context/globalContext'
 import QNectHandler from '@/components/qnect/QNectHandler'
 import Sidebar from '@/components/ui/Sidebar'
 import OpenSidebarButton from '@/components/ui/OpenSidebarButton'
+import FirstRootComponent from './FirstRootComponent'
 
 export default function RootLayout({
   children,
@@ -18,6 +19,8 @@ export default function RootLayout({
       <head />
       <body>
         <GlobalContextProvider>
+          {/* first root component is used to pull initial stuff from session storage */}
+          <FirstRootComponent/>
           <QNectHandler/>
           <OpenSidebarButton/>
           <Sidebar/>

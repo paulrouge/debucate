@@ -1,50 +1,20 @@
-#!/bin/bash
+# #!/bin/bash
 
-# remove package-lock.json
-rm package-lock.json
+# # remove package-lock.json
+# rm package-lock.json
 
-# yarn init
-yarn install
+# # yarn init
+# yarn install
 
-# Install PostCSS
-yarn add postcss@^8.4
+# # Create the Tailwind config file
+# npx tailwind init -p
 
-# Install Tailwind
-yarn add -D postcss-preset-env tailwindcss@latest autoprefixer@latest
+# # overwrite app/global.css with template_files/global.css
+# cp template_files/globals.css app/globals.css
 
-# Create the Tailwind config file
-npx tailwind init -p
+# # overwrite package.json with template_files/package.json
+# cp template_files/package.json package.json
 
-# Install concurrently
-yarn add concurrently
-
-# Install @headlessui/react
-yarn add @headlessui/react
-
-# Install @heroicons/react
-yarn add @heroicons/react
-
-# Install framer-motion
-yarn add framer-motion
-
-# Install three @types/three @react-three/fiber @react-three/drei
-yarn add three @types/three @react-three/fiber @react-three/drei
-
-# Install ethers 5.4
-yarn add ethers@5.4
-
-# Install icon-sdk-js
-yarn add icon-sdk-js
-
-# Install @metamask/detect-provider
-yarn add @metamask/detect-provider
-
-# overwrite app/global.css with template_files/global.css
-cp template_files/globals.css app/globals.css
-
-# overwrite package.json with template_files/package.json
-cp template_files/package.json package.json
-
-# overwrite tailwind.config.js with template_files/tailwind.config.js
-cp template_files/tailwind.config.js tailwind.config.js
+# # overwrite tailwind.config.js with template_files/tailwind.config.js
+# cp template_files/tailwind.config.js tailwind.config.js
 
