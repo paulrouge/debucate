@@ -85,6 +85,8 @@ const WalletProvider = ({name}: Props) => {
 
                             window.dispatchEvent(customEvent);
                         }
+                        
+                        sessionStorage.setItem('selectedChainIsIcon', 'true')
                         callHana()
                         return
                     } else {
@@ -103,7 +105,8 @@ const WalletProvider = ({name}: Props) => {
                 console.log(error)
             }
         }
-
+        
+        sessionStorage.setItem('chainId', chainId.toString())
         switchChain()
         setConnectModalOpen(false)
     }
