@@ -56,3 +56,5 @@ To start the development server, run 'yarn next dev' in the terminal.
 See the Readme.md file for more information. I also advise to check tailwind.config.js,
 you can easily add custom colors, fonts, etc. that you can then easily use as tailwind classes.
 """
+
+print(msg)
