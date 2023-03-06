@@ -54,7 +54,12 @@ os.system('git remote rm origin')
     
 msg = """\n\n\nThanks for using the Paul Rouge Mega Template!
 
-Next.js13 has been installed with TailwindCSS and PostCSS.
+Next.js13 has been installed with:
+
+- TailwindCSS
+- PostCSS
+- headlessui/react, use this for modals, dropdowns, etc.
+- heroicons/react, use this for icons
 
 To start the development server, run 'yarn next dev' in the terminal.
 
