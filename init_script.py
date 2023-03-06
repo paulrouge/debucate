@@ -30,6 +30,9 @@ shutil.copyfile('template_files/globals.css', 'app/globals.css')
 # Overwrite tailwind.config.js with template_files/tailwind.config.js
 shutil.copyfile('template_files/tailwind.config.js', 'tailwind.config.js')
 
+# Overwrite next.config.js with template_files/next.config.js
+shutil.copyfile('template_files/next.config.js', 'next.config.js')
+
 # Load the contents of package.json into a dictionary
 with open('package.json', 'r') as f:
     package_data = json.load(f)
@@ -46,7 +49,9 @@ package_data['scripts'] = {
 with open('package.json', 'w') as f:
     json.dump(package_data, f, indent=2)
 
-
+# remove the git remote url
+os.system('git remote rm origin')
+    
 msg = """\n\n\nThanks for using the Paul Rouge Mega Template!
 
 Next.js13 has been installed with TailwindCSS and PostCSS.
