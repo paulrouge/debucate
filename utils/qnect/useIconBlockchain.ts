@@ -43,6 +43,7 @@ const useIconBlockchain = () => {
                 break
             case "RESPONSE_ADDRESS":
                 setAccount(payload)
+                sessionStorage.setItem('account', payload)
                 break
             case "RESPONSE_JSON-RPC":                
                 if (payload.error) return 
