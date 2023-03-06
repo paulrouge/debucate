@@ -17,7 +17,25 @@ This is a template for a web3 project using nextjs. It is a template for a proje
 
     git clone link_to_repo <new_folder_name>
 
-2. Run the init_script.py script with sudo on linux, and as administrator on windows (I think you can right-click the cmd-prompt in your windows menu and choose 'run as administrator'). 
+2. CD into the folder and Run the init_script.py script with sudo on linux, and as administrator on windows (I think you can right-click the cmd-prompt in your windows menu and choose 'run as administrator'). 
+
+3. Create a new Github repository, and follow the 'or push an existing repository from the command line' instructions to set the Github repo
+as the remote repo that is linked to the local project you just created using this template. 
+
+The github instructions for this are:
+
+`git remote add origin https://github.com/yourname/test_examplee-blabla.git`
+
+`git branch -M main`
+
+`git push -u origin main`
+
+
+This will likely give you some git error when trying to 'git push', force the push by adding -f. So:
+
+`git push -u -f origin main`
+
+Now the local project/repo is linked to the repo on your Github.
 
 ## app/layout.tsx
 Comment out the `QNectHandler` component from the layout, if you don't want to use qnect.
