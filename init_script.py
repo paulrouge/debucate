@@ -25,7 +25,7 @@ if os.path.exists('package-lock.json'):
 os.system('yarn install')
 
 # Overwrite app/global.css with template_files/global.css
-shutil.copyfile('template_files/global.css', 'app/global.css')
+shutil.copyfile('template_files/globals.css', 'app/globals.css')
 
 # Overwrite tailwind.config.js with template_files/tailwind.config.js
 shutil.copyfile('template_files/tailwind.config.js', 'tailwind.config.js')
