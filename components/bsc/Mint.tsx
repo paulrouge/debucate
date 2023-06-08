@@ -28,7 +28,7 @@ const Mint = () => {
         }
 
         const tx = await contractSigner.safeMint(account,options)
-        // const tx = await erc20Signer.transfer("0xAc1c776DC91c1BE50AD69CFD5F465973ab2Cbe72", value, options) 
+        
         // setTransactionToCheck(tx)
         console.log(tx)
     }
@@ -42,7 +42,9 @@ const Mint = () => {
         <div>Balance: {balance} BUSD</div>
         <div 
             onClick={handleClick}
-            className='bg-funYellow text-center rounded text-black cursor-pointer'>
+            className='
+            bg-funYellow text-center rounded text-black 
+            cursor-pointer mt-4 hover:bg-white transition-colors ease-in-out'>
             MINT!
         </div>
     </div>
