@@ -22,15 +22,18 @@ const Mint = () => {
     }, [account, erc20Reader, provider])
 
     const handleClick = async () => {
-        const options = {
+        let options = {
             gasLimit: 1000000,
             value: MINTFEE
         }
 
-        const tx = await contractSigner.safeMint(account,options)
-        
-        // setTransactionToCheck(tx)
-        console.log(tx)
+        const gasLimit = await contractSigner.estimateGas.safeMint(account,options)
+        // add a buffer to the gas limit
+        const adjustedGasLimit = gasLimit.mul(120).div(100);
+        options.gasLimit = adjustedGasLimit
+
+        const tx = await contractSigner.safeMint(account,options)       
+        setTransactionToCheck(tx.hash)
     }
 
     return (
