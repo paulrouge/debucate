@@ -67,6 +67,7 @@ const useBSCDapp = () => {
     useEffect(() => {
         const getOwnedNFTs = async () => {
             try {
+                console.log(account, "account")
                 const nftIds = await contractReader?.getAllTokensOwned(account)
                 const arr = nftIds?.map((id: any) => parseInt(id._hex))
 
@@ -82,13 +83,21 @@ const useBSCDapp = () => {
 
     }, [contractReader, signer, account])
 
-
+    const getUri = async (id: number) => {
+        try {
+            const uri = await contractReader?.tokenURI(id)
+            return uri
+        } catch (error) {
+            console.error('Error getting NFT URI:', error)
+        }
+    }
 
     return { 
         contractSigner, 
         contractReader,
         erc20Reader,
-        nftsOwned
+        nftsOwned,
+        getUri
     }
 }
 
