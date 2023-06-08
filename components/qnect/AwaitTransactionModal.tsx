@@ -2,14 +2,18 @@
 import React, {useEffect, useState} from 'react'
 import { useGlobalContext } from '../../utils/context/globalContext'
 
-import IconService from 'icon-sdk-js/build/IconService';
+/* 
+    This component is a modal that shows up when a transaction is sent.
+    It shows the status of the transaction and the estimated time until it is mined.
+    It also closes itself when the transaction is mined.
+*/
 
 const sleep = (ms: number) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const AwaitTransactionModal = () => {
-    const { setTransactionToCheck, transactionToCheck} = useGlobalContext()
+    const { setTransactionToCheck, transactionToCheck, provider} = useGlobalContext()
     const [countdown, setCountdown] = useState(40)
     const [status, setStatus] = useState("Waiting for transaction to be mined")
     const [dots, setDots] = useState(".")
@@ -30,20 +34,12 @@ const AwaitTransactionModal = () => {
     // evm
     useEffect(() => {
         const checkTx = async () => {
-            const receipt = await transactionToCheck!.txobject
-            // cast to any because the type is wrong.
-            // the ethers talks of a TransactionResponse-type, can't find it or get it to work
-            const _receipt = (receipt as any).wait()
-            const txStatus = _receipt.status 
+            const receipt = await provider!.waitForTransaction(transactionToCheck!)
+            const txStatus = receipt.status 
             
             if(txStatus === 1) {
                 setStatus("✅ Transaction successful! Closing in 3 seconds")
-                
-                if(transactionToCheck!.eventToEmit){
-                    // use Qnect to run all needed callbacks to update the UI
-                    window.dispatchEvent(new CustomEvent(transactionToCheck!.eventToEmit))
-                }
-            
+                   
                 setCountdown(3)    
                 await sleep(3000)
                 
@@ -54,11 +50,11 @@ const AwaitTransactionModal = () => {
                 alert("Something went wrong. Check the BSC Tracker.")
             }
         }
-        if(transactionToCheck) {
+        if(transactionToCheck && provider) {
             checkTx()
         }
         // eslint-disable-next-line
-    }, [setStatus, setCountdown, setTransactionToCheck])
+    }, [setStatus, setCountdown, provider ,     transactionToCheck])
 
 
     useEffect(() => {
