@@ -19,7 +19,7 @@ export default function QNectButton() {
     '
     onClick={()=>setConnectModalOpen(true)}
     >
-        Q-Nect
+        Connect
     </motion.div>
     );
 }
