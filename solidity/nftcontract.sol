@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 // A helper to convert uints to a string.
 library UintToString {
@@ -39,13 +40,13 @@ contract DecubateNFT is ERC721, ERC721URIStorage, Ownable {
     using UintToString for uint256;
 
     Counters.Counter private _tokenIdCounter;
-    
-    address payable public OWNER;
-    uint public MINTFEE = 1 * 10 ** 16; // atm 0.01 bnb
+
+    uint public MINTFEE = 10 * 10 ** 18; // atm 0.01 bnb
+    address public bUSDContract = 0xe46eC5a68381dc7edE298d62D02f9403edfd2136;
+    IERC20 public bUSDToken = IERC20(bUSDContract);
 
     constructor() ERC721("Decubate NFT", "dNFT") {
         _tokenIdCounter.increment(); // init at token id 1
-        OWNER = payable(msg.sender);
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -57,17 +58,17 @@ contract DecubateNFT is ERC721, ERC721URIStorage, Ownable {
     }
 
     function safeMint(address to) external payable {
-        require(msg.value == MINTFEE, "Bad fee amount.");
-        require(_tokenIdCounter.current() < 20, "No more mints left :(");
+        require(bUSDToken.allowance(msg.sender,address(this)) >= MINTFEE, "allowance too low!");
+        require(_tokenIdCounter.current() <= 20, "No more mints left :(");
         uint256 tokenId = _tokenIdCounter.current();
-        OWNER.transfer(msg.value);
-    
+
+        bUSDToken.transferFrom(msg.sender, owner(), MINTFEE);
+
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uintToString(tokenId));
     }
 
-    // a helper function to get all tokens owned by an address
     function getAllTokensOwned(address adr) external view returns (uint[] memory) {
         uint current = _tokenIdCounter.current();
         uint balance = this.balanceOf(adr);
@@ -85,7 +86,7 @@ contract DecubateNFT is ERC721, ERC721URIStorage, Ownable {
 
         return arr;
     }
-
+    
     // The following functions are overrides required by Solidity.
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
         super._burn(tokenId);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { useGlobalContext } from '@/utils/context/globalContext'
 import { ContractAddresses } from '@/utils/constants/addresses'
@@ -74,19 +74,24 @@ const useBUSD = () => {
     useEffect(() => {
         const getAllowance = async () => {
             const _allowance = await erc20Reader.allowance(account, ContractAddresses[chainId].NFT_contract)
-            setAllowance(Number(_allowance) / 10 ** 18)
-            
+            setAllowance(Number(_allowance) / 10 ** 18)   
         }
 
+        
         if (account !== "" && erc20Reader) {
             getAllowance()
-         
         }
+
     }, [account, erc20Reader, reRenderHelper])
 
+    useEffect(() => {
+        console.log('allowance', allowance)
+    }, [allowance])
     
     const setAllowanceToMintPrice = async () => {
         const amount = ethers.utils.parseUnits(MINTFEE.toString(), 18)
+        // for testing set amount to 0
+        // const amount = ethers.utils.parseUnits('0', 18)
         const gasLimit = await erc20Signer.estimateGas.approve(ContractAddresses[chainId].NFT_contract, amount)
         
         // add a buffer to the gas limit
