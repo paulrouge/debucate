@@ -13,7 +13,7 @@ const sleep = (ms: number) => {
 }
 
 const AwaitTransactionModal = () => {
-    const { setTransactionToCheck, transactionToCheck, provider} = useGlobalContext()
+    const { setTransactionToCheck, transactionToCheck, provider, reRenderHelper, setRerenderhelper} = useGlobalContext()
     const [countdown, setCountdown] = useState(40)
     const [status, setStatus] = useState("Waiting for transaction to be mined")
     const [dots, setDots] = useState(".")
@@ -45,6 +45,9 @@ const AwaitTransactionModal = () => {
                 
                 // this closes the tx modal
                 setTransactionToCheck(null)
+
+                // this forces a rerender of the component that called the tx modal
+                setRerenderhelper(reRenderHelper + 1)
  
             } else {
                 alert("Something went wrong. Check the BSC Tracker.")

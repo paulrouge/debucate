@@ -7,7 +7,7 @@ const erc20Artifact = require('@/utils/constants/contract_abis/erc20_minimal.jso
 
 
 const useBSCDapp = () => {
-    const { chainId, provider, signer, account } = useGlobalContext()
+    const { chainId, provider, signer, account, reRenderHelper } = useGlobalContext()
     const [contractSigner, setContractSigner] = useState<any>(null) // Define contract state
     const [contractReader, setContractReader] = useState<any>(null) // Define contract state
     const [erc20Reader, setErc20Reader] = useState<any>(null) // Define contract state
@@ -67,7 +67,7 @@ const useBSCDapp = () => {
     useEffect(() => {
         const getOwnedNFTs = async () => {
             try {
-                console.log(account, "account")
+                
                 const nftIds = await contractReader?.getAllTokensOwned(account)
                 const arr = nftIds?.map((id: any) => parseInt(id._hex))
 
@@ -81,7 +81,7 @@ const useBSCDapp = () => {
             getOwnedNFTs()
         }
 
-    }, [contractReader, signer, account])
+    }, [contractReader, signer, account, reRenderHelper])
 
     const getUri = async (id: number) => {
         try {

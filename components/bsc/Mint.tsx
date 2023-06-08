@@ -6,8 +6,8 @@ import { ethers } from 'ethers'
 import {MINTFEE} from '@/utils/constants/constants'
 
 const Mint = () => {
-    const { account,provider,chainId, setTransactionToCheck} = useGlobalContext()
-    const { contractReader, erc20Reader, contractSigner } = useBSCDapp()
+    const { account,provider, setTransactionToCheck} = useGlobalContext()
+    const { erc20Reader, contractSigner } = useBSCDapp()
     const [balance, setBalance] = useState(0)
   
     useEffect(() => {
@@ -34,6 +34,7 @@ const Mint = () => {
 
         const tx = await contractSigner.safeMint(account,options)       
         setTransactionToCheck(tx.hash)
+
     }
 
     return (

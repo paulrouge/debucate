@@ -30,6 +30,9 @@ export type globalContextValueType = {
     
     // project specific state values
 
+    // rerender helper is used to force a rerender of a component after a new mint occured
+    reRenderHelper: number,
+    setRerenderhelper: React.Dispatch<React.SetStateAction<number>>, 
 }
 
 export const GlobalContext = React.createContext<globalContextValueType | null>(null)
@@ -47,7 +50,8 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [transactionToCheck, setTransactionToCheck] = useState<string|null>(null)
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
-
+    const [reRenderHelper, setRerenderhelper] = useState<number>(0)
+    
     // project specific state value
     
     const value: globalContextValueType = {  
@@ -73,7 +77,8 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         setIsSidebarOpen: setIsSidebarOpen,
 
         // project specific state values
-    
+        reRenderHelper,
+        setRerenderhelper: setRerenderhelper,
     }
 
     return(
