@@ -2,8 +2,8 @@
 
 import React, {useState} from 'react';
 import { ethers } from 'ethers';
-import { qTransactionChecker } from '../qnect/qtypes';
-import IconService from 'icon-sdk-js/build/IconService';
+
+
 
 export type globalContextValueType = {
     
@@ -21,8 +21,8 @@ export type globalContextValueType = {
     setSigner: React.Dispatch<React.SetStateAction<ethers.Signer | null>>,
     globalLoading: boolean,
     setGlobalLoading: React.Dispatch<React.SetStateAction<boolean>>,
-    transactionToCheck: qTransactionChecker | null,
-    setTransactionToCheck: React.Dispatch<React.SetStateAction<qTransactionChecker| null>>,
+    transactionToCheck: string | null,
+    setTransactionToCheck: React.Dispatch<React.SetStateAction<string| null>>,
     connectModalOpen: boolean,
     setConnectModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
     isSidebarOpen: boolean,
@@ -44,7 +44,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [provider, setProvider] = useState<ethers.providers.Web3Provider|null>(null)
     const [signer, setSigner] = useState<ethers.Signer|null>(null)
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
-    const [transactionToCheck, setTransactionToCheck] = useState<qTransactionChecker|null>(null)
+    const [transactionToCheck, setTransactionToCheck] = useState<string|null>(null)
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
 
