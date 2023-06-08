@@ -13,10 +13,7 @@ const menuItems = [
         name: 'Dashboard',
         link: '/dashboard',
     },
-    {
-        name: 'For Dave',
-        link: '/three',
-    },
+
 ]
 
 const Sidebar = () => {

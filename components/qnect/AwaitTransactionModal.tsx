@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect, useState} from 'react'
 import { useGlobalContext } from '../../utils/context/globalContext'
-import useIconBlockchain from '@/utils/qnect/useIconBlockchain';
+
 import IconService from 'icon-sdk-js/build/IconService';
 
 const sleep = (ms: number) => {
@@ -9,7 +9,7 @@ const sleep = (ms: number) => {
 }
 
 const AwaitTransactionModal = () => {
-    const { setTransactionToCheck, transactionToCheck, selectedChainIsIcon, iconService } = useGlobalContext()
+    const { setTransactionToCheck, transactionToCheck} = useGlobalContext()
     const [countdown, setCountdown] = useState(40)
     const [status, setStatus] = useState("Waiting for transaction to be mined")
     const [dots, setDots] = useState(".")
@@ -29,7 +29,6 @@ const AwaitTransactionModal = () => {
 
     // evm
     useEffect(() => {
-        if (selectedChainIsIcon) return
         const checkTx = async () => {
             const receipt = await transactionToCheck!.txobject
             // cast to any because the type is wrong.
@@ -52,7 +51,7 @@ const AwaitTransactionModal = () => {
                 setTransactionToCheck(null)
  
             } else {
-                alert("Something went wrong. Check the Snow Tracker.")
+                alert("Something went wrong. Check the BSC Tracker.")
             }
         }
         if(transactionToCheck) {
@@ -61,70 +60,6 @@ const AwaitTransactionModal = () => {
         // eslint-disable-next-line
     }, [setStatus, setCountdown, setTransactionToCheck])
 
-    // icon
-    useEffect(() => {
-        if (!selectedChainIsIcon) return
-        const checkTx = async () => {
-            const hash:string = String(transactionToCheck!.txobject)
-            await sleep(3000)
-
-            // try 5 times every 2 seconds
-            let tries = 0
-            let receipt = null
-            
-            while(tries < 5) {
-                try {
-                    receipt = await iconService!.getTransactionResult(hash).execute()
-                    if(receipt.status === 1) {
-                        break
-                    } if (receipt.status === 0) {
-                        break
-                    }
-                
-                } catch (e) {
-                    console.log(e)
-                    await sleep(2000)
-                    tries++
-                }
-            }
-            
-            
-            if (receipt === null) {
-                alert("Something went wrong. Check the Tracker.")
-                setTransactionToCheck(null)
-                return
-            }
-            const txStatus = receipt!.status
-
-            if(txStatus === 1) {
-                setStatus("✅ Transaction successful! Closing in 3 seconds")
-                
-                if(transactionToCheck!.eventToEmit){
-                    // use Qnect to run all needed callbacks to update the UI
-                    window.dispatchEvent(new CustomEvent(transactionToCheck!.eventToEmit))
-                }
-                
-                setCountdown(3)    
-                await sleep(3000)
-                
-                // this closes the tx modal
-                setTransactionToCheck(null)
- 
-            } else {
-                alert("Something went wrong. Check the Tracker.")
-                setTransactionToCheck(null)
-            }
-
-        }
-        if(transactionToCheck) {
-            try{
-                checkTx()
-            } catch (e) {
-                console.log(e)
-            }
-        }
-        // eslint-disable-next-line
-    }, [setStatus, setCountdown, setTransactionToCheck])
 
     useEffect(() => {
         // function that adds a dot every 300ms up to three dots and then resets to one dot

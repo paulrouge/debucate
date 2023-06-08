@@ -1,3 +1,14 @@
+# Decubate project specifics / info
+I will use this template of mine to get started quickly. Normally I use this template to interact with smart contract on the ICON Blockchain, which are written in Java. But I also started on implementing evm compatiblity (ethers.js). So I will try and take all the non-evm out of it but there might be some leftover code floating around, which I guess is not a huge problem in this particular case.
+
+## NFTs
+Another guess is that it won't be an issue to reuse an existing IPFS folder/files of a project of mine, I am assuming that it's more important to show that I can implement the NFTs in the project, rather than to show that I can create a new IPFS folder and upload the files to IPFS. 
+
+__fyi: The project I'm taking the IPFS files from is www.idogelabs.com (I'm the creator of that project, which is live on the ICON Blockchain)__
+
+
+
+
 # web3 nextjs template
 
 This is a template for a web3 project using nextjs. It is a template for a project that uses the following technologies:

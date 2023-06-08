@@ -6,32 +6,27 @@ import { useGlobalContext } from "@/utils/context/globalContext";
 import { formatAddress } from "@/utils/qnect/formatAddress";
 import { motion, AnimatePresence } from "framer-motion";
 import ShowBalance from '@/components/ui/ShowBalance';
-import useIconCallBuilder from '@/utils/qnect/useIconCallBuilder';
 import { ContractAddresses } from '@/utils/constants/addresses';
 
 export default function Home() {
-  const { testValue, account, selectedChainIsIcon, chainId, iconService } = useGlobalContext()
+  const { testValue, account, chainId } = useGlobalContext()
   
-  const { callContract } = useIconCallBuilder(ContractAddresses[chainId].ICON_lottery_contract!, 'name', {})
 
   useEffect(() => {
  
-    const _callIconContract = async () => {
-      const result = await callContract()
-      console.log(result)
-    }
+    // const _callIconContract = async () => {
+    //   const result = await callContract()
+    //   console.log(result)
+    // }
 
-    if(account !== '' && selectedChainIsIcon && iconService) {
-      _callIconContract()
-    }
+    // if(account !== '' && selectedChainIsIcon && iconService) {
+    //   _callIconContract()
+    // }
 
-  }, [account, chainId, selectedChainIsIcon, iconService])
+  }, [account, chainId])
 
   return (
-    <div className={`
-    w-full font-customFont bg-funBlue transition ease-in-out duration-500
-    ${selectedChainIsIcon ? ' bg-funBlue' : 'bg-funRed'} 
-    `}>
+    <div className={`w-full font-customFont bg-funBlue transition ease-in-out duration-500 bg-funRed`}>
       <main className='
       flex justify-center 
       items-center m-auto min-h-screen flex-col
@@ -90,7 +85,10 @@ export default function Home() {
               </motion.div>
             </AnimatePresence>
            
-            <div className='
+
+            
+          </div>
+          <div className='
             mt-4 flex items-center flex flex-col h-16 w-full
             bg-gray-100 text-gray-700 font-mono p-2 rounded-md'
             >  
@@ -105,8 +103,6 @@ export default function Home() {
               </motion.div>
             </AnimatePresence>
             </div>
-            
-          </div>
         </div>
       </main>
       <footer className={styles.footer}>

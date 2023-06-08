@@ -15,10 +15,6 @@ export type globalContextValueType = {
     setBalance: React.Dispatch<React.SetStateAction<number>>,
     chainId: number,
     setChainId: React.Dispatch<React.SetStateAction<number>>,
-    selectedChainIsIcon: boolean,
-    setSelectedChainIsIcon: React.Dispatch<React.SetStateAction<boolean>>,
-    iconService: IconService | null,
-    setIconService: React.Dispatch<React.SetStateAction<IconService | null>>,
     provider: ethers.providers.Web3Provider | null,
     setProvider: React.Dispatch<React.SetStateAction<ethers.providers.Web3Provider|null>>,
     signer: ethers.Signer | null,
@@ -31,9 +27,9 @@ export type globalContextValueType = {
     setConnectModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
     isSidebarOpen: boolean,
     setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    
     // project specific state values
-    lotteryId: number,
-    setLotteryId: React.Dispatch<React.SetStateAction<number>>,
+
 }
 
 export const GlobalContext = React.createContext<globalContextValueType | null>(null)
@@ -44,9 +40,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     // qNect template values
     const [account, setAccount] = useState<string>('')
     const [balance, setBalance] = useState<number>(0)
-    const [chainId, setChainId] = useState<number>(2) // 553: Arctic Test, 553: Snow Main
-    const [selectedChainIsIcon, setSelectedChainIsIcon] = useState<boolean>(true)
-    const [iconService, setIconService] = useState<IconService|null>(null)
+    const [chainId, setChainId] = useState<number>(97) // 553: Arctic Test, 553: Snow Main
     const [provider, setProvider] = useState<ethers.providers.Web3Provider|null>(null)
     const [signer, setSigner] = useState<ethers.Signer|null>(null)
     const [globalLoading, setGlobalLoading] = useState<boolean>(false)
@@ -54,8 +48,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
     const [connectModalOpen, setConnectModalOpen] = useState<boolean>(false)
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
 
-    // project specific state values
-    const [lotteryId, setLotteryId] = useState<number>(0)
+    // project specific state value
     
     const value: globalContextValueType = {  
         // qNect template values
@@ -66,10 +59,6 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         setBalance,
         chainId,
         setChainId,
-        selectedChainIsIcon,
-        setSelectedChainIsIcon,
-        iconService,
-        setIconService,
         provider,
         setProvider,
         signer,
@@ -84,8 +73,7 @@ export const GlobalContextProvider = ({children}: {children: React.ReactNode}) =
         setIsSidebarOpen: setIsSidebarOpen,
 
         // project specific state values
-        lotteryId: lotteryId,
-        setLotteryId: setLotteryId,
+    
     }
 
     return(

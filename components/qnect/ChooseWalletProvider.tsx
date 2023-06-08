@@ -25,10 +25,8 @@ const WalletProvider = ({name}: Props) => {
         setProvider, 
         setSigner, 
         chainId, 
-        selectedChainIsIcon, 
+        // selectedChainIsIcon, 
     } = useGlobalContext()
-
-
 
     // switch chain
     const switchChain = async () => {
@@ -54,7 +52,7 @@ const WalletProvider = ({name}: Props) => {
     }
 
     const handleClick = async () => {        
-        if (name === 'MetaMask' && selectedChainIsIcon) return
+        // if (name === 'MetaMask' && selectedChainIsIcon) return
         if(name === 'MetaMask'){
             try {
                 const provider = await detectEthereumProvider({mustBeMetaMask:false}) as MetaMaskEthereumProvider
@@ -75,30 +73,13 @@ const WalletProvider = ({name}: Props) => {
         if (name === 'Hana') {
             try {
                 if(window !== undefined) {
-                    if(selectedChainIsIcon){
-                        const callHana = () => {
-                            const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST',  {   
-                                detail: { 
-                                type: 'REQUEST_ADDRESS'   
-                                } 
-                            });
-
-                            window.dispatchEvent(customEvent);
-                        }
-                        
-                        sessionStorage.setItem('selectedChainIsIcon', 'true')
-                        callHana()
-                        return
-                    } else {
-                    
-                        if (window.hanaWallet !== undefined) {
-                            const _account = await window.hanaWallet.ethereum.request({ method: 'eth_requestAccounts' })
-                            setAccount(_account[0])
-                            const _provider = new ethers.providers.Web3Provider(window.hanaWallet.ethereum,)
-                            setProvider(_provider)
-                            const _signer = _provider.getSigner()
-                            setSigner(_signer)
-                        }
+                    if (window.hanaWallet !== undefined) {
+                        const _account = await window.hanaWallet.ethereum.request({ method: 'eth_requestAccounts' })
+                        setAccount(_account[0])
+                        const _provider = new ethers.providers.Web3Provider(window.hanaWallet.ethereum,)
+                        setProvider(_provider)
+                        const _signer = _provider.getSigner()
+                        setSigner(_signer)
                     }
                 }
             } catch (error) {
@@ -113,20 +94,11 @@ const WalletProvider = ({name}: Props) => {
 
     return (
     <motion.div 
-    whileHover={
-        selectedChainIsIcon && name === 'MetaMask'
-          ? { scale: 1.0 }
-          : { scale: 1.03 }
-      }
+    whileHover={{ scale: 1.03 }}
     whileTap={{ scale: 0.9 }}
     transition={{ duration: 0.1 }}
     onClick={handleClick} 
-    className={`p-4 m-2 bg-customBlue rounded-md 
-    flex justify-center items-center text-white z-10 
-    ${selectedChainIsIcon && name === 'MetaMask' ? 'opacity-50' : 'cursor-pointer '}
-    
-    `}
-    >
+    className={`p-4 m-2 bg-customBlue rounded-md flex justify-center items-center text-white z-10 cursor-pointer `}>
         <Image src={`/media/${name}.png`} width={40} height={40} alt={name} className='mr-4'/>
         {name}
     </motion.div>

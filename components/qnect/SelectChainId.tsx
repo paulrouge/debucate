@@ -11,24 +11,22 @@ type Chain = {
 }
 
 const chains = [
-  { id: 552, name: 'Snow Main', unavailable: false },
-  { id: 553, name: 'Arctic Test', unavailable: false },
-  { id: 1, name: 'Icon Main', unavailable: false },
-  { id: 2, name: 'Lisbon Test', unavailable: false },
+  { id: 97, name: 'BSC Test', unavailable: false },
+  { id: 11155111, name: 'Sepolia', unavailable: true },
 ]
 
 const SelectChainId = () => {
-  const { setChainId, setSelectedChainIsIcon, chainId } = useGlobalContext()
+  const { setChainId, chainId } = useGlobalContext()
   const [selectedChain, setSelectedChain] = useState(chains[0])
 
   useEffect(() => {
-    // check the globale state for chainId and set the selectedChain
+    // check the global state for chainId and set the selectedChain
     for(let i = 0; i < chains.length; i++){
       if(chains[i].id === chainId){
         setSelectedChain(chains[i])
         
         if(chains[i].name === 'Icon Main' || chains[i].name === 'Lisbon Test'){
-          setSelectedChainIsIcon(true)
+          // setSelectedChainIsIcon(true)
         }
       }
     }
@@ -36,9 +34,9 @@ const SelectChainId = () => {
 
   const handleSelectChain = (event: Chain) => {
     if(event.name === 'Icon Main' || event.name === 'Lisbon Test') {
-      setSelectedChainIsIcon(true)
+      // setSelectedChainIsIcon(true)
     } else {
-      setSelectedChainIsIcon(false)
+      // setSelectedChainIsIcon(false)
     }
     setChainId(event.id)
     setSelectedChain(event)
@@ -46,7 +44,6 @@ const SelectChainId = () => {
 
   return (
     <div onClick={(e)=>e.stopPropagation()}>
-      
       <Listbox value={selectedChain} onChange={(e)=>handleSelectChain(e)}>
       <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="block truncate text-black">{selectedChain.name}</span>
