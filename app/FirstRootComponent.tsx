@@ -14,9 +14,7 @@ const FirstRootComponent = () => {
     useEffect(() => {
         const _account = sessionStorage.getItem('account')
         if(_account) setAccount(_account)
-        
-        alert(_account)
-
+    
         // const _chainId = sessionStorage.getItem('chainId')
         // if(_chainId) setChainId(Number(_chainId))
         
