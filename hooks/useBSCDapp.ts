@@ -10,7 +10,6 @@ const useBSCDapp = () => {
     const { chainId, provider, signer } = useGlobalContext()
     const [contractSigner, setContractSigner] = useState<any>(null) // Define contract state
     const [contractReader, setContractReader] = useState<any>(null) // Define contract state
-    // const [erc20Signer, setErc20Signer] = useState<any>(null) // Define contract state
     const [erc20Reader, setErc20Reader] = useState<any>(null) // Define contract state
     const [nftBalance, setNftBalance] = useState<any>(null) // Define contract state
 
@@ -28,7 +27,7 @@ const useBSCDapp = () => {
                 setContractReader(newContract)
 
                 // Create a signer contract instance
-                const _signer = provider?.getSigner()
+                const _signer = provider!.getSigner()
                 const newContractSigner = new ethers.Contract(contractAddress!, abi, _signer)
                 setContractSigner(newContractSigner)
 
@@ -39,8 +38,9 @@ const useBSCDapp = () => {
         // if(!signer) return
         if (provider){
             loadContractABI()
+            console.log('ran loadContractABI')
         }
-       
+        console.log('ran ') 
     }, [provider, chainId])
 
 
@@ -48,7 +48,6 @@ const useBSCDapp = () => {
         const loadContractABI = async () => {
             try {
                 const abi = erc20Artifact
-                // console.log('abi', abi)
 
                 // Create a contract instance
                 const contractAddress = ContractAddresses[chainId].BUSD_contract // Address of the deployed contract

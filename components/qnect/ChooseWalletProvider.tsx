@@ -62,7 +62,7 @@ const WalletProvider = ({name}: Props) => {
                     setAccount(_account[0])
 
                     // also set account to local storage
-                    sessionStorage.setItem('account', _account[0])
+                    localStorage.setItem('account', _account[0])
 
                     const _provider = new ethers.providers.Web3Provider(provider)
                     setProvider(_provider) 
