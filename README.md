@@ -4,10 +4,15 @@ I will use this template of mine to get started quickly. Normally I use this tem
 ## NFTs
 Another guess is that it won't be an issue to reuse an existing IPFS folder/files of a project of mine, I am assuming that it's more important to show that I can implement the NFTs in the project, rather than to show that I can create a new IPFS folder and upload the files to IPFS. 
 
-__fyi: The project I'm taking the IPFS files from is www.idogelabs.com (I'm the creator of that project, which is live on the ICON Blockchain)__
+_fyi: The project I'm taking the IPFS files from is www.idogelabs.com (I'm the creator of that project, which is live on the ICON Blockchain)_
+
+## Solidity
+For ease of use I included the nft solidity contract I used for this project [here](./solidity/nftcontract.sol) . It was quicker for me to just deploy the contract using remix instead of my local environment. I used open-zeppelin for the base erc721 contract and added some custom functions.
 
 
+### From this point on it is the original README.md of the template I created for my own use.
 
+[]: # Path: README.md
 
 # web3 nextjs template
 
