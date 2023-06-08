@@ -60,6 +60,10 @@ const WalletProvider = ({name}: Props) => {
                 if (provider) {
                     const _account = await provider.request({ method: 'eth_requestAccounts' })
                     setAccount(_account[0])
+
+                    // also set account to local storage
+                    sessionStorage.setItem('account', _account[0])
+
                     const _provider = new ethers.providers.Web3Provider(provider)
                     setProvider(_provider) 
                     const _signer = _provider.getSigner()

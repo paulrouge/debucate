@@ -88,7 +88,13 @@ export default function Home() {
 
             
           </div>
-          <div className='
+          
+          {/* 
+          At the moment the balance is not updating when the account is coming from local storage.
+          Decided to leave it like this for now, because it's not a big deal.
+          */}
+          
+          {/* <div className='
             mt-4 flex items-center flex flex-col h-16 w-full
             bg-gray-100 text-gray-700 font-mono p-2 rounded-md'
             >  
@@ -102,7 +108,7 @@ export default function Home() {
                 <ShowBalance/><></>
               </motion.div>
             </AnimatePresence>
-            </div>
+            </div> */}
         </div>
       </main>
       <footer className={styles.footer}>
