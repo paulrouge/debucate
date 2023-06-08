@@ -49,7 +49,7 @@ const FirstRootComponent = () => {
         if(account !== '') {
             setUpProviderAndSigner()
         }
-    }, [])
+    }, [account])
 
     return <></>
 }
