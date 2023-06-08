@@ -23,11 +23,11 @@ const Mint = () => {
 
     const handleClick = async () => {
         const options = {
-            gasLimit: 100000,
+            gasLimit: 1000000,
             value: MINTFEE
         }
 
-        const tx = await contractSigner.safeMint(account,'1',options)
+        const tx = await contractSigner.safeMint(account,options)
         // const tx = await erc20Signer.transfer("0xAc1c776DC91c1BE50AD69CFD5F465973ab2Cbe72", value, options) 
         // setTransactionToCheck(tx)
         console.log(tx)
