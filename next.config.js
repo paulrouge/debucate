@@ -12,6 +12,9 @@ const nextConfig = {
     config.module.exprContextCritical = false;
     return config;
   },
+  images: {
+    domains: ['idogelabs.mypinata.cloud'],
+  },
 };
 
 module.exports = nextConfig;
