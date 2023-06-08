@@ -10,7 +10,7 @@ export type ContractAddresses = {
 export const ContractAddresses:ContractAddresses = {
     // BSC Testnet
     97:{
-        NFT_contract: '0xd28dE2E28B3D41Ce9666d5Ad10c5B3eD5a28e494', 
+        NFT_contract: '0x14270E64449B736b54781de99d11F655fb81f16D', 
         BUSD_contract: '0xe46eC5a68381dc7edE298d62D02f9403edfd2136' 
     },
     // Sepolia ETH2 Testnet
