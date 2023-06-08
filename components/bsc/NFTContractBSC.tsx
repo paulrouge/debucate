@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import useBSCDapp from '@/hooks/useBSCDapp'
 import { ContractAddresses } from '@/utils/constants/addresses'
 import Mint from './Mint'
+import RenderOwnedNFTs from './RenderOwnedNFTs'
 
 
 
@@ -59,6 +60,7 @@ const DappContractBSC = () => {
                 {/* <div className='text-xl uppercase'>Address:</div>
                 <div>{ContractAddresses[97].NFT_contract}</div> */}
                 <Mint />
+                <RenderOwnedNFTs />
             </div>
         </div>
 
