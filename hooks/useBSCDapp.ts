@@ -7,16 +7,15 @@ const erc20Artifact = require('@/utils/constants/contract_abis/erc20_minimal.jso
 
 
 const useBSCDapp = () => {
-    const { chainId, provider, signer } = useGlobalContext()
+    const { chainId, provider, signer, account } = useGlobalContext()
     const [contractSigner, setContractSigner] = useState<any>(null) // Define contract state
     const [contractReader, setContractReader] = useState<any>(null) // Define contract state
     const [erc20Reader, setErc20Reader] = useState<any>(null) // Define contract state
-    const [nftBalance, setNftBalance] = useState<any>(null) // Define contract state
+    const [nftsOwned, setNftsOwned] = useState<number[]>([]) // Define contract state
 
     useEffect(() => {
         const loadContractABI = async () => {
             try {
-                
                 const abi = contractArtifact
     
                 // Create a reader contract instance
@@ -38,9 +37,8 @@ const useBSCDapp = () => {
         // if(!signer) return
         if (provider){
             loadContractABI()
-            console.log('ran loadContractABI')
         }
-        console.log('ran ') 
+
     }, [provider, chainId])
 
 
@@ -67,27 +65,30 @@ const useBSCDapp = () => {
     }, [provider, chainId])
 
     useEffect(() => {
-        const getNFTBalance = async () => {
+        const getOwnedNFTs = async () => {
             try {
-                const balance = await contractReader?.balanceOf(signer?.getAddress())
-                setNftBalance(balance)
+                const nftIds = await contractReader?.getAllTokensOwned(account)
+                const arr = nftIds?.map((id: any) => parseInt(id._hex))
+
+                setNftsOwned(arr)
             } catch (error) {
                 console.error('Error getting NFT balance:', error)
             }
         }
         
-        if (contractReader){
-            getNFTBalance()
+        if (contractReader && account !== ""){
+            getOwnedNFTs()
         }
 
-    }, [contractReader, signer])
+    }, [contractReader, signer, account])
 
 
 
     return { 
         contractSigner, 
         contractReader,
-        erc20Reader
+        erc20Reader,
+        nftsOwned
     }
 }
 
