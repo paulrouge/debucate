@@ -10,7 +10,6 @@ const useBSCDapp = () => {
     const { chainId, provider, signer, account, reRenderHelper } = useGlobalContext()
     const [contractSigner, setContractSigner] = useState<any>(null) // Define contract state
     const [contractReader, setContractReader] = useState<any>(null) // Define contract state
-    const [erc20Reader, setErc20Reader] = useState<any>(null) // Define contract state
     const [nftsOwned, setNftsOwned] = useState<number[]>([]) // Define contract state
 
     useEffect(() => {
@@ -40,30 +39,7 @@ const useBSCDapp = () => {
         }
 
     }, [provider, chainId])
-
-
-    useEffect(() => {
-        const loadContractABI = async () => {
-            try {
-                const abi = erc20Artifact
-
-                // Create a contract instance
-                const contractAddress = ContractAddresses[chainId].BUSD_contract // Address of the deployed contract
-                const newContract = new ethers.Contract(contractAddress!, abi, provider!)
-
-                // Set the contract state
-                setErc20Reader(newContract)
-            } catch (error) {
-                console.error('Error loading contract ABI:', error)
-            }
-        }
-
-        if (provider){
-            loadContractABI()
-        }
-
-    }, [provider, chainId])
-
+    
     useEffect(() => {
         const getOwnedNFTs = async () => {
             try {
@@ -95,7 +71,6 @@ const useBSCDapp = () => {
     return { 
         contractSigner, 
         contractReader,
-        erc20Reader,
         nftsOwned,
         getUri
     }
