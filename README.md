@@ -6,13 +6,13 @@ Another guess is that it won't be an issue to reuse an existing IPFS folder/file
 
 _fyi: The project I'm taking the IPFS files from is www.idogelabs.com (I'm the creator of that project, which is live on the ICON Blockchain)_
 
+Minting is done with test BUSD tokens. The tokens are being transfered to the owner of the contract.
+
 ## Solidity
-For ease of use I included the nft solidity contract I used for this project [here](./solidity/nftcontract.sol) . It was quicker for me to just deploy the contract using remix instead of my local environment. I used open-zeppelin for the base erc721 contract and added some custom functions.
+For ease of use I included the nft solidity contract I used for this project [here](./solidity/nftcontract.sol) . It was quicker for me to just deploy the contract using remix instead of my local environment. I used open-zeppelin for the base erc721 contract and added some custom functions. Seemed overkill to create a separate repo for this contract.
 
 
 ### From this point on it is the original README.md of the template I created for my own use.
-
-[]: # Path: README.md
 
 # web3 nextjs template
 
