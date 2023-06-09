@@ -16,7 +16,7 @@ export default function Home() {
           This is my Decubate Assignment 
         </div>
         <div className='text-2xl mt-10 font-bold'>
-          I used a Next.js template that I build and includes Typescript, TailwindCSS, Ethersjs and some other stuff.
+          I used a Next.js template that I built that includes Typescript, TailwindCSS, Ethers.js, and some other stuff.
         </div>
         
         <div className='flex items-center flex flex-col w-full mt-6 text-xl px-4 py-2'>
