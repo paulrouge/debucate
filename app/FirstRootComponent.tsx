@@ -8,9 +8,7 @@ import { ethers } from 'ethers'
 
 // this component is rendered first and can be used to set / check session or local storage
 // in this example we only set the account. So the user doesn't have to connect his wallet every time he visits the page
-// extend on MetaMaskEthereumProvider type
 
-// a helper type to prevent TypeScript errors
 type MetaMaskEthereumProvider = {
     request: (args: {method: string }) => Promise<string[]>
 }

@@ -19,7 +19,7 @@ export default function RootLayout({
       <head />
       <body>
         <GlobalContextProvider>
-          {/* first root component is used to pull initial stuff from session storage */}
+          {/* first root component is used to pull initial stuff from local storage */}
           <FirstRootComponent/>
           <QNectHandler/>
           <OpenSidebarButton/>

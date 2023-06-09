@@ -1,9 +1,10 @@
 import React from 'react'
 import useBSCDapp from '@/hooks/useBSCDapp'
 import { useGlobalContext } from '@/utils/context/globalContext'
-import {MINTFEE} from '@/utils/constants/constants'
+// import {MINTFEE} from '@/utils/constants/constants'
 import useBUSD from '@/hooks/useBUSD'
 import Allowance from './busd/Allowance'
+
 const Mint = () => {
     const { allowance } = useBUSD()
     const { account, setTransactionToCheck} = useGlobalContext()

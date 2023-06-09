@@ -9,7 +9,7 @@ const page = () => {
   
     return (
     <div className='flex min-h-screen justify-center items-center flex-col'>
-        <div className='text-4xl font-bold p-8'>
+        <div className='text-4xl font-bold p-8 font-mono'>
             Your NFT Dashboard
         </div>
         <NFTContractBSC />   

@@ -11,7 +11,6 @@ type Props = {
     name: string
 }
 
-// extend on MetaMaskEthereumProvider type
 type MetaMaskEthereumProvider = {
     request: (args: {method: string }) => Promise<string[]>
 }
@@ -25,7 +24,6 @@ const WalletProvider = ({name}: Props) => {
         setProvider, 
         setSigner, 
         chainId, 
-        // selectedChainIsIcon, 
     } = useGlobalContext()
 
     // switch chain
@@ -52,7 +50,6 @@ const WalletProvider = ({name}: Props) => {
     }
 
     const handleClick = async () => {        
-        // if (name === 'MetaMask' && selectedChainIsIcon) return
         if(name === 'MetaMask'){
             try {
                 const provider = await detectEthereumProvider({mustBeMetaMask:false}) as MetaMaskEthereumProvider
