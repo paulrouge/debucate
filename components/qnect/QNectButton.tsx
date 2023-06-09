@@ -19,7 +19,7 @@ export default function QNectButton() {
     `}
     onClick={()=>setConnectModalOpen(true)}
     >
-        Connect
+       {account ? `${account.slice(0, 6)}...${account.slice(-4)}` : 'Connect'}
     </motion.div>
     );
 }
