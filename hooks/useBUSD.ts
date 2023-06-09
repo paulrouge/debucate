@@ -1,11 +1,11 @@
-import React, { use, useEffect, useState } from 'react'
+import {useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { useGlobalContext } from '@/utils/context/globalContext'
 import { ContractAddresses } from '@/utils/constants/addresses'
 import {MINTFEE} from '@/utils/constants/constants'
 
+// using require here because using import causes issues
 const erc20Artifact = require('@/utils/constants/contract_abis/erc20_minimal.json')
-
 
 const useBUSD = () => {
     const { chainId, provider, signer, account, setTransactionToCheck, reRenderHelper } = useGlobalContext()
@@ -90,8 +90,10 @@ const useBUSD = () => {
     
     const setAllowanceToMintPrice = async () => {
         const amount = ethers.utils.parseUnits(MINTFEE.toString(), 18)
+        
         // for testing set amount to 0
         // const amount = ethers.utils.parseUnits('0', 18)
+        
         const gasLimit = await erc20Signer.estimateGas.approve(ContractAddresses[chainId].NFT_contract, amount)
         
         // add a buffer to the gas limit
@@ -104,8 +106,6 @@ const useBUSD = () => {
         const tx = await erc20Signer.approve(ContractAddresses[chainId].NFT_contract, amount, options)
         setTransactionToCheck(tx.hash)
     }
-
-
 
     return { 
         erc20Reader,

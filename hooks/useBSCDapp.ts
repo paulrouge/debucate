@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import { useGlobalContext } from '@/utils/context/globalContext'
 import { ContractAddresses } from '@/utils/constants/addresses'
-const contractArtifact = require('@/utils/constants/contract_abis/nft_abi.json')
-const erc20Artifact = require('@/utils/constants/contract_abis/erc20_minimal.json')
 
+// using require here because using import causes issues
+const contractArtifact = require('@/utils/constants/contract_abis/nft_abi.json')
 
 const useBSCDapp = () => {
     const { chainId, provider, signer, account, reRenderHelper } = useGlobalContext()
