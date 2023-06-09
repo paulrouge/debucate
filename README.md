@@ -1,4 +1,4 @@
-# Decubate project specifics / info
+# Decubate assignment specifics / info
 I will use this template of mine to get started quickly. Normally I use this template to interact with smart contract on the ICON Blockchain, which are written in Java. But I also started on implementing evm compatiblity (ethers.js). So I will try and take all the non-evm out of it but there might be some leftover code floating around, which I guess is not a huge problem in this particular case.
 
 Also, whenever you see 'Qnect' poppin up in the code, that is some template stuff I created to interact with the ICON Blockchain. 
@@ -13,8 +13,16 @@ Minting is done with test BUSD tokens. The tokens are being transfered to the ow
 ## Solidity
 For ease of use I included the nft solidity contract I used for this project [here](./solidity/nftcontract.sol) . It was quicker for me to just deploy the contract using remix instead of my local environment. I used open-zeppelin for the base erc721 contract and added some custom functions. Seemed overkill to create a separate repo for this contract.
 
+# How to run the project
+run:
+`yarn install`
 
-### From this point on it is the original README.md of the template I created for my own use.
+then:
+`yarn next dev`
+
+The project will run on localhost:3000
+
+_From this point on it is the original README.md of the template I created for my own use._
 
 # web3 nextjs template
 
