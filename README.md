@@ -1,6 +1,8 @@
 # Decubate project specifics / info
 I will use this template of mine to get started quickly. Normally I use this template to interact with smart contract on the ICON Blockchain, which are written in Java. But I also started on implementing evm compatiblity (ethers.js). So I will try and take all the non-evm out of it but there might be some leftover code floating around, which I guess is not a huge problem in this particular case.
 
+Also, whenever you see 'Qnect' poppin up, that is some template stuff I created to interact with the ICON Blockchain. 
+
 ## NFTs
 Another guess is that it won't be an issue to reuse an existing IPFS folder/files of a project of mine, I am assuming that it's more important to show that I can implement the NFTs in the project, rather than to show that I can create a new IPFS folder and upload the files to IPFS. 
 
