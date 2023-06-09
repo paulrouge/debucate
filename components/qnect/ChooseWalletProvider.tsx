@@ -105,8 +105,16 @@ const WalletProvider = ({name}: Props) => {
     </motion.div>
 )}
         
+
+
 const ChooseWalletProvider = () => {
-    const {setConnectModalOpen} = useGlobalContext()
+    const {setConnectModalOpen, setAccount} = useGlobalContext()
+
+    const handleDisconnect = () => {
+        setAccount('')
+        // also set account to local storage
+        localStorage.setItem('account', '')
+    }
 
     return (
     <AnimatePresence >
@@ -134,6 +142,9 @@ const ChooseWalletProvider = () => {
                 <div className='flex flex-row'>
                     <WalletProvider name='Hana'/>
                     <WalletProvider name='MetaMask'/>
+                </div>
+                <div className='px-2 text-base cursor-pointer' onClick={handleDisconnect}>
+                    disconnect
                 </div>
             </div>
         </motion.div>
