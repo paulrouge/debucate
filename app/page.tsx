@@ -1,53 +1,43 @@
 
 'use client';
-import { useEffect } from 'react'
 import styles from "./page.module.css";
 import { useGlobalContext } from "@/utils/context/globalContext";
 import { formatAddress } from "@/utils/qnect/formatAddress";
 import { motion, AnimatePresence } from "framer-motion";
-import ShowBalance from '@/components/ui/ShowBalance';
-import { ContractAddresses } from '@/utils/constants/addresses';
+import Link from "next/link";
 
 export default function Home() {
-  const { testValue, account, chainId } = useGlobalContext()
+  const { testValue, account } = useGlobalContext()
   
-
-  useEffect(() => {
- 
-    // const _callIconContract = async () => {
-    //   const result = await callContract()
-    //   console.log(result)
-    // }
-
-    // if(account !== '' && selectedChainIsIcon && iconService) {
-    //   _callIconContract()
-    // }
-
-  }, [account, chainId])
-
   return (
-    <div className={`w-full font-customFont bg-funBlue transition ease-in-out duration-500 bg-funRed`}>
-      <main className='
-      flex justify-center 
-      items-center m-auto min-h-screen flex-col
-      md:w-1/2 w-11/12 pt-20
-      '>
-        <div className='md:text-8xl text-5xl font-bold'>
-          Start Building
+    <div className={`w-full text-white font-customFont transition ease-in-out duration-500 ${account === '' ? 'bg-funRed' : 'bg-funBlue'}`}>
+      <main className='flex justify-center items-center m-auto min-h-screen flex-col md:w-1/2 w-11/12'>
+        <div className='md:text-7xl text-5xl font-black'>
+          This is my Decubate Assignment 
         </div>
-        <div className='text-2xl my-10 font-bold'>
-          This is a Tailwind Example with Next.js 13 & qNect
-        </div>
-        <div className='md:text-xl text-lg'>
-          <div className='list-disc list-inside'>
-            <div className='my-4'>👉🏼 Global states are handled by the GlobalContextProvider. 
-              If you want to add/edit values and functions
-              that need to be globally available you should do this as /utils/context/globalContext.tsx </div>
-            <div className='my-4'>👉🏼 qNect is loaded on the background on every page by using the layout.tsx file at root.</div>
-          </div>
+        <div className='text-2xl mt-10 font-bold'>
+          I used a Next.js template that I build and includes Typescript, TailwindCSS, Ethersjs and some other stuff.
         </div>
         
-        <div className='my-4 md:w-3/5 md-11/12 h-48'>
+        <div className='flex items-center flex flex-col w-full mt-6 text-xl px-4 py-2'>
+        { account === '' ?
+          <div>
+            Connect your wallet to start!
+          </div>
+          :
+          <div>
+            <Link 
+            className='border rounded-md p-2 hover:bg-gray-100 hover:text-gray-700 font-mono'
+            href='/dashboard'>
+
+                Go to dashboard
+
+            </Link>
+          </div>
+        }
+
+        </div>
+        <div className='my-0 md:w-3/5 md-11/12 h-48'>
           
           <div className='
           mt-4 flex items-center flex flex-col h-16 w-full
@@ -68,6 +58,7 @@ export default function Home() {
               </motion.div>
             </AnimatePresence>
           </div>
+
           <div className='
           mt-4 flex items-center flex flex-col h-16 w-full
           bg-gray-100 text-gray-700 font-mono p-2 rounded-md'>
@@ -84,9 +75,6 @@ export default function Home() {
                 {account !== '' ? formatAddress(account) : 'Not connected'}
               </motion.div>
             </AnimatePresence>
-           
-
-            
           </div>
           
           {/* 
